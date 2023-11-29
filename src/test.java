@@ -7,8 +7,8 @@ public class test {
         	Scanner scanner = new Scanner(System.in);
         	
         	// 创建精灵和敌人角色  
-			Player player0 = new Player(1, "pika", 100, 20);
-			Player player1 = new Player(2, "b", 110, 15);
+			Player player0 = new Player(new Nature(2), "pika", 100, 20); //指定一个属性
+			Player player1 = new Player("b", 110, 15);  //随机一个属性
 			
 			//放入列表
 			List<Player> mylist = new ArrayList<>();  
@@ -19,13 +19,13 @@ public class test {
 			//String name = scanner.nextLine();  
 			//player.setName(name);	//重命名
 			      
-			Player enemy = new Player(3,"敌人", 80, 15);  
+			Player enemy = new Player("敌人", 80, 15);  
 			
 			
 			//展示所有精灵
 			System.out.println("你的所有精灵：");
 			for (Player s : mylist ) {
-			    System.out.println(mylist.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature2());
+			    System.out.println(mylist.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature());
 			}
 			
 			//选择初始精灵
@@ -100,7 +100,7 @@ public class test {
 			        	//展示所有精灵
 			            System.out.println("你的所有精灵：");
 			            for (Player s : mylist ) {
-			                System.out.println(mylist.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature2());
+			                System.out.println(mylist.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature());
 			            }
 			            //选择出战精灵
 			            while (1==1) {
@@ -132,7 +132,7 @@ public class test {
 		            	mylist.add(enemy);	//加入list	            	
 		            	System.out.println("你的所有精灵：");
 		                for (Player s : mylist ) {
-		                    System.out.println(mylist.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature2());
+		                    System.out.println(mylist.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature());
 		                }
 		                //System.out.print("结束战斗！");
 		                
