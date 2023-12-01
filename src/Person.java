@@ -1,3 +1,4 @@
+import java.util.List;
 
 /**
  * 训练师，精灵pk，收集精灵，打败怪物
@@ -5,7 +6,8 @@
  */
 public class Person {
 	
-	private String name;
-	private int badge; //徽章	
+	private String name = "主角";
+	private List<Pokemon> pokemonlist;	//精灵		
+	private int badge; 			//徽章	
 
 }

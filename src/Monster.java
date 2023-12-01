@@ -47,18 +47,6 @@ class Monster {
         return damage;  
     }  
   
-	/*
-	 * public double useSkill(Pokemon enemy) {
-	 * 
-	 * System.out.print(this.name + " 使用技能，");
-	 * 
-	 * double damage = attack * 2 * this.nature.outcom(enemy.nature);
-	 * 
-	 * System.out.println(" 造成 " + damage + " 点伤害！");
-	 * 
-	 * return damage; }
-	 */
-  
     public void decreaseHealth(double damage) {  
         health -= damage;  
         if(health > 0)
