@@ -191,18 +191,19 @@ public class test {
 					continue;
 				}  
 			}
-
-
-
-			// 结果
-
-			if (mylist.get(num_p).getHealth() <= 0) {  
-				System.out.println("GameOver！");
-			} else {  
-				System.out.println("结束战斗！");  
-			}
-
 		}
+
+
+
+		// 结果
+
+		if (mylist.get(num_p).getHealth() <= 0) {  
+			System.out.println("GameOver！");
+		} else {  
+			System.out.println("结束战斗！");  
+		}
+
+
 
 	}
 }
