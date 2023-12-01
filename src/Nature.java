@@ -1,31 +1,30 @@
 
-import java.util.Random;
-
 /**
  * 属性类，三种属性克制关系
  */
+
 public class Nature {
 	
 	private int cod;    			//1 2 3
 	private String notes;  			//水火草
-	private double coef = 0.1;   	//属性克制伤害浮动 默认10%
+	private float coef = 0.1f;   	//属性克制伤害浮动 默认10%
 	
-	Random r = new Random();
 	
 	//指定属性 new 数字
 	public Nature(int num) {
 		
-		if (num < 1 && num >3)	this.cod = r.nextInt(1, 4);
+		if (num < 1 || num >3)	this.cod = (int)(Math.random() * 3 + 1);
 		else this.cod = num;
 		
 	}
 	
-	//不指定，就随机
+	//不指定，就随机，可用于生成野外精灵 或怪物
 	public Nature() {
 		
-		this.cod = r.nextInt(1, 4);
+		this((int)(Math.random() * 3 + 1));
 		
 	}
+	
 	
     public String getNature() {
     	
@@ -37,20 +36,21 @@ public class Nature {
     	
     }
     
-    public double outcom(Nature enemy) {
+    public float outcom(Nature enemy) {
     	
-    	int relation = this.cod - enemy.cod;    	
-    	double outcom;
+    	int relation = this.cod - enemy.cod;
+    	
+    	float outcom;
     	
 		if  (relation == -1 || relation == 2 ) {
     		
-   		 	System.out.print("（属性克制！伤害增加）");
+   		 	System.out.println("（属性克制！伤害增加）");
    		 	
    		 	outcom = 1 + coef;
     		
     	}else if(relation == 1 || relation == -2){
     		
-    		System.out.print("（属性被克！伤害减少）");
+    		System.out.println("（属性被克！伤害减少）");
     		
     		outcom = 1 - coef;
     		

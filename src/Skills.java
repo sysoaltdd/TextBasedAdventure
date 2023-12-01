@@ -1,30 +1,53 @@
 /**技能类
- * 名称，伤害系数
+ * 名称，伤害系数，命中率
  */
 public class Skills {
 	
-	private String name = "技能";  //技能名称
-	private double coef = 2;       //基于基础攻击力的伤害系数
+	private String name = "普通攻击";  	//技能名称
+	private double coef = 1.0;          //基于基础攻击力的伤害系数
+	private double accuracy = 0.95;			//命中率
 	
 	public Skills() {}
 	
-	public Skills(String name, double coef) {
+	public Skills(String name, double coef, double accuracy) {
 		
 		this.name = name;
 		this.coef = coef;
+		this.accuracy = accuracy;
 		
 	}
 	
 	public String getSkillname() {
 		
-		return this.name;
+		return name;
+		
+	}
+	
+
+	public double getCoef() {
+		
+		return coef;
+		
+	}
+	
+	public double getAccuracy() {
+		
+		return accuracy;
 		
 	}
 	
 	public double getSkillcoef() {
 		
-		return this.coef;
+		if(Math.random() > accuracy) {
+    		
+			return 0;
+			
+		}else {
+			
+			return coef;
+			
+		}
 		
 	}
-
+	
 }

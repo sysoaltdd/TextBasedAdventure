@@ -1,53 +1,70 @@
 
+/**
+ * 怪物类，不同于精灵，用于收集进化瓶...
+ * 
+ */
 class Enemy {  
-	private int nature; //属性 1水 2火 3土
-    private String name;  
-    private double health;  
-    private double attack;  
+	Nature nature; 				//属性
+    private String name = "怪物1";  
+    private double health;  	//生命
+    private int attack; 		//攻击力
   
-    public Enemy(int nature, String name, int health, int attack) {  
+    public Enemy(Nature nature, String name, double health, int attack) {  
+    	
     	this.nature = nature;
         this.name = name;  
         this.health = health;  
         this.attack = attack;  
     }  
-    public int getNature() {
-    	return nature;
+    
+    public Enemy(String name, double health, int attack) {  
+    	
+    	//随机属性
+    	this(new Nature(), name, health, attack);
+    	
+    }
+    
+    public String getNature() {
+    	return nature.getNature();
     }
   
     public String getName() {  
         return name;  
-    }  
+    } 
   
     public double getHealth() {  
         return health;  
     }  
     
-    public double natureRelation(Player player) {
-    	int relation = this.nature - player.getNature();
-    	double outcome;
-    	if  (relation == -1|| relation == 2 ) {
-    		 outcome = 1.1;
-    	}else if(relation == 1|| relation == -2){
-    		 outcome = 0.9;
-    	}else {
-    		 outcome = 1.0;
-    	}
-    	return 	outcome;
-    }
-    
-    public double attack(Player player) {  
-        double damage = attack * this.natureRelation(player) ; 
-        System.out.println(this.name + " 攻击了" + player.getName() + "，" + player.getName() + "受到了 " + damage + " 点伤害！");  
+    public double attack(Player enemy) {  
+    	
+    	System.out.print(this.name + " 攻击了" + enemy.getName() +"，");  
+    	
+        double damage = attack * this.nature.outcom(enemy.nature);
+        
+        System.out.println(" 造成 " + damage + " 点伤害！");  
+        
         return damage;  
     }  
+  
+	/*
+	 * public double useSkill(Player enemy) {
+	 * 
+	 * System.out.print(this.name + " 使用技能，");
+	 * 
+	 * double damage = attack * 2 * this.nature.outcom(enemy.nature);
+	 * 
+	 * System.out.println(" 造成 " + damage + " 点伤害！");
+	 * 
+	 * return damage; }
+	 */
+  
     public void decreaseHealth(double damage) {  
         health -= damage;  
         if(health > 0)
-        	System.out.println(name + " 剩余生命值：" + health);  
+        	System.out.println(this.name + " 剩余生命值：" + health);  
         else
-        	System.out.println(name + " 阵亡 ");
-        	
-    }  
-}  
-  
+        	System.out.println(this.name + " 阵亡 "); 
+    }
+
+}

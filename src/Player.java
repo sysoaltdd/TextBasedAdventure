@@ -1,41 +1,51 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * 精灵类，战斗
+ * 精灵类，名字、属性、攻击力...
+ * 使用技能，互相pk
  */
+
 class Player {  
-	private Nature nature; 		//属性类
+	Nature nature; 				//属性类
     private String name;  
-    private double health;  
+    private double health;  	//当前生命值
+    private double healthmax;	//最大生命值，考虑有治疗技能
     private double attack; 		//基础攻击力
-	private Skills skilllist;  	//技能类
-	private int numskill = 2;	//技能个数
+    private List<Skills> skilllist; //自身最终技能列表
+    private int numskill = 5;		//除去技能0外的随机技能个数 
+    
   
-    public Player(Nature nature, String name, int health, int attack) {  
+    public Player(Nature nature, List<Skills> skilllist, String name, int healthmax, int attack, int numskill) {  
     	
     	this.nature = nature;
         this.name = name;  
-        this.health = health;  
-        this.attack = attack;  
+        this.healthmax = healthmax; 
+        this.health = healthmax;
+        this.attack = attack;
+        this.numskill = numskill;
+        
+        this.skilllist = new ArrayList<>();
+        this.skilllist.add(skilllist.get(0));//技能0
+        
+        //随机生成剩余技能
+        for (int s : randomArray.numChoose(1, skilllist.size() - 1, this.numskill) ) {
+        	this.skilllist.add(skilllist.get(s));
+		}
+        
+
     }  
     
-    public Player(String name, int health, int attack) {  
+    public Player(List<Skills> skilllist, String name, int healthmax, int attack, int numskill) {  
     	
-    	this(new Nature(), name, health, attack);
+    	//随机属性
+    	this(new Nature(), skilllist, name, healthmax, attack, numskill);
     	
     }
     
     public String getNature() {
     	return nature.getNature();
     }
-    
-	/*
-	 * public String getNature2() { String naturech ; if(this.nature.number == 1)
-	 * naturech = "水"; else if(this.nature.number == 2) naturech = "火"; else
-	 * naturech = "土";
-	 * 
-	 * return naturech;
-	 * 
-	 * }
-	 */
   
     public String getName() {  
         return name;  
@@ -49,34 +59,46 @@ class Player {
         return health;  
     }  
     
-	/*
-	 * public double natureRelation(Player enemy) { int relation = this.nature -
-	 * enemy.getNature(); double outcome; if (relation == -1 || relation == 2 ) {
-	 * outcome = 1.1; }else if(relation == 1 || relation == -2){ outcome = 0.9;
-	 * }else { outcome = 1.0; } return outcome; }
-	 */
+    public double getAttack() {  
+        return attack;  
+    }  
+    
+    public List<Skills> getSkills(){
     	
-    public double attack(Player enemy) {  
+    	return skilllist;
     	
-    	System.out.print(this.name + " 攻击了" + enemy.getName() +"，");  
+    }
     	
-        double damage = attack * this.nature.outcom(enemy.nature);
+    public double attack(Player enemy, int ord) {  						//新增参数，表示调用不同技能
+    	
+    	System.out.println(this.name + " 使用了" + skilllist.get(ord).getSkillname());  
+    	
+        double damage = attack * this.nature.outcom(enemy.nature) * skilllist.get(ord).getSkillcoef();
         
-        System.out.println(" 造成 " + damage + " 点伤害！");  
+        if(damage == 0) {
+        	
+        	System.out.println("糟糕，未命中！");
+        	
+        }else {
+        	
+        	System.out.println(" 造成 " + damage + " 点伤害！");  
+        	
+        }
         
         return damage;  
     }  
   
-    public double useSkill(Player enemy) {  
-    	
-    	System.out.print(this.name + " 使用技能，");  
-    	
-        double damage = attack * 2 * this.nature.outcom(enemy.nature);
-        
-        System.out.println(" 造成 " + damage + " 点伤害！");  
-        
-        return damage;  
-    }  
+	/*
+	 * public double useSkill(Player enemy) {
+	 * 
+	 * System.out.print(this.name + " 使用技能，");
+	 * 
+	 * double damage = attack * 2 * this.nature.outcom(enemy.nature);
+	 * 
+	 * System.out.println(" 造成 " + damage + " 点伤害！");
+	 * 
+	 * return damage; }
+	 */  
   
     public void decreaseHealth(double damage) {  
         health -= damage;  

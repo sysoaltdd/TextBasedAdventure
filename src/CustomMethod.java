@@ -1,4 +1,8 @@
 
+/**
+ * 判断输入的是否是数字，返回boolean
+ */
+
 public class CustomMethod {
 	
 	public static boolean isDigit(String input) {
