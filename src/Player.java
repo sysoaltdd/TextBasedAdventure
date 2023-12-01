@@ -9,9 +9,9 @@ import java.util.List;
 class Player {  
 	Nature nature; 				//属性类
     private String name;  
-    private double health;  	//当前生命值
-    private double healthmax;	//最大生命值，考虑有治疗技能
-    private double attack; 		//基础攻击力
+    private int health;  	//当前生命值
+    private int healthmax;	//最大生命值，考虑有治疗技能
+    private int attack; 		//基础攻击力
     private List<Skills> skilllist; //自身最终技能列表
     private int numskill = 5;		//除去技能0外的随机技能个数 
     
@@ -69,11 +69,11 @@ class Player {
     	
     }
     	
-    public double attack(Player enemy, int ord) {  						//新增参数，表示调用不同技能
+    public int attack(Player enemy, int ord) {  						//新增参数，表示调用不同技能
     	
     	System.out.println(this.name + " 使用了" + skilllist.get(ord).getSkillname());  
     	
-        double damage = attack * this.nature.outcom(enemy.nature) * skilllist.get(ord).getSkillcoef();
+        int damage = (int)Math.round(attack * this.nature.outcom(enemy.nature) * skilllist.get(ord).getSkillcoef());  //小数四舍五入取整
         
         if(damage == 0) {
         	

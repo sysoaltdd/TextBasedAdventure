@@ -38,6 +38,7 @@ public class Skills {
 	
 	public double getSkillcoef() {
 		
+		//命中率		
 		if(Math.random() > accuracy) {
     		
 			return 0;
