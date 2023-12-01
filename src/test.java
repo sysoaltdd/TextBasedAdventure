@@ -17,7 +17,7 @@ public class test {
 				new Skills("技能5", 2, 0.50));
 
 		// 创建精灵和敌人角色  属性 技能池 名字 生命上限 基础攻击力 技能数
-		Player player0 = new Player(new Nature(2),skillslist, "pika", 100, 20, 2); //指定一个属性2
+		Player player0 = new Player(new Nature(2),skillslist, "pika", 100, 20, 5); //指定一个属性2
 		Player player1 = new Player(skillslist, "b", 110, 15, 1);  //随机一个属性
 
 
