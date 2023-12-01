@@ -7,7 +7,7 @@ public class Nature {
 	
 	private int cod;    			//1 2 3
 	private String notes;  			//水火草
-	private float coef = 0.1f;   	//属性克制伤害浮动 默认10%
+	private float coef = 0.1f;   	//不同属性之间伤害浮动 10%
 	
 	
 	//指定属性 new 数字

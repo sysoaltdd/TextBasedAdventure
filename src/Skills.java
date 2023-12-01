@@ -5,7 +5,7 @@ public class Skills {
 	
 	private String name = "普通攻击";  	//技能名称
 	private double coef = 1.0;          //基于基础攻击力的伤害系数
-	private double accuracy = 0.95;			//命中率
+	private double accuracy = 0.95;		//命中率
 	
 	public Skills() {}
 	

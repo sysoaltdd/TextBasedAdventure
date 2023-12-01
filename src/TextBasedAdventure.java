@@ -1,114 +1,209 @@
-import java.util.*;  
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;  
 
 public class TextBasedAdventure {  
-    public static void main(String[] args) throws InterruptedException {  
-        Scanner scanner = new Scanner(System.in);
-  
-        // 创建精灵和敌人角色  
-        Player player0 = new Player(1, "pika", 100, 20);
-        Player player1 = new Player(2, "b", 110, 15);
-        Player player2 = new Player(3, "c", 105, 22);
-        Player player3 = new Player(2, "d", 100, 10);
-        List<Player> list = List.of(player0, player1, player2, player3);
-        
-        
-        //System.out.print("取个新名字吧:");
-        //String name = scanner.nextLine();  
-        //player.setName(name);	//重命名
-              
-        Player enemy = new Player(2,"敌人", 80, 15);  
-        
-        //展示所有精灵
-        System.out.println("你的所有精灵：");
-        for (Player s : list ) {
-            System.out.println(list.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature2());
-        }
-        //选择出战精灵
-        System.out.print("请选择出战精灵（号码）:"); 
-        String order = scanner.nextLine();
-        int n = Integer.parseInt(order) - 1;
-        
-  
-        // 初始化玩家的回合数和敌人的回合数  
-        int playerTurn = 1;  
-        //int enemyTurn = 1;  //改为敌我同一回合 
-  
-        
-        while (list.get(n).getHealth() > 0 && enemy.getHealth() > 0) {
-            // 玩家回合
-        	
-            System.out.println("回合：" + playerTurn);  
-            System.out.print("请输入命令（1：攻击/2：技能/3：切换精灵/4：捕捉/5：逃跑）:");  
-            String playerAction = scanner.nextLine();  //获取输入指令
-            if(list.get(n).getHealth() > 0) {
-	            if (playerAction.equals("1")) {  
-	                 
-	                Thread.sleep(2000);
-	                
-	                enemy.decreaseHealth(list.get(n).attack(enemy));  
-	                
-	            } else if (playerAction.equals("2")) {  
+	public static void main(String[] args) throws InterruptedException {	
 
-	                Thread.sleep(2000);
-	                
-	                enemy.decreaseHealth(list.get(n).useSkill(enemy));  
-	                
-	            } else if(playerAction.equals("3")) {
-	            	
-	            	Thread.sleep(2000);
-	            	//展示所有精灵
-	                System.out.println("你的所有精灵：");
-	                for (Player s : list ) {
-	                    System.out.println(list.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature2());
-	                }
-	                //选择出战精灵
-	                System.out.print("请选择出战精灵（号码）:"); 
-	                order = scanner.nextLine();
-	                n = Integer.parseInt(order) - 1; //更新n
-	                continue;
-	            	
-	            }
-	            else if(playerAction.equals("4")) {
-	            	
-	            	System.out.print("捕捉成功，取个新名字吧:");
-	            	String name = scanner.nextLine(); 
-	            	enemy.setName(name);	//重命名
-	            	list.add(enemy);	//加入list	            	
-	            	System.out.println("你的所有精灵：");
-	                for (Player s : list ) {
-	                    System.out.println(list.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature2());
-	                }
-	            }
-	            
-	            else {  
-	            	
-	                System.out.println("无效输入！"); 
-	                continue;
-	            }  
-            }
-            //playerTurn++;  
-  
-            // 敌人回合  
-            //System.out.println("回合：" + enemyTurn);  
-            //System.out.println("敌人攻击了你，你受到了 " + enemy.attack(player) + " 点伤害！");  
-            
-            Thread.sleep(2000);
-            
-            if(enemy.getHealth() > 0) {
-            	
-            	list.get(n).decreaseHealth(enemy.attack(list.get(n)));  
-	            playerTurn++;
-	            
-	            Thread.sleep(2000);
-            }
-        }  
-  
-        // 结果
+		Scanner scanner = new Scanner(System.in);
 
-        if (list.get(n).getHealth() <= 0) {  
-            System.out.println("GameOver！");
-        } else {  
-            System.out.println("战斗胜利！");  
-        }  
-    }  
+		//创建技能池 暂未命名 伤害，命中率
+		List<Skills> skillslist = List.of(
+				new Skills(),
+				new Skills("技能1", 1.1, 0.97),
+				new Skills("技能2", 1.3, 0.92),
+				new Skills("技能3", 1.4, 0.85),
+				new Skills("技能4", 1.5, 0.80),
+				new Skills("技能5", 2, 0.50));
+
+		// 创建精灵和敌人角色  属性 技能池 名字 生命上限 基础攻击力 技能数
+		Pokemon Pokemon0 = new Pokemon(new Nature(2),skillslist, "pika", 100, 20, 5); //指定一个属性2
+		Pokemon Pokemon1 = new Pokemon(skillslist, "b", 110, 15, 1);  //随机一个属性
+
+
+		/*
+		 * for (Skills s : Pokemon0.getSkills() ) { System.out.println(s.getSkillname());
+		 * }
+		 */
+
+
+
+		//放入列表
+		List<Pokemon> mylist = new ArrayList<>();  
+		mylist.add(Pokemon0);
+		mylist.add(Pokemon1);
+
+		//System.out.print("取个新名字吧:");
+		//String name = scanner.nextLine();  
+		//Pokemon.setName(name);	//重命名
+
+		Pokemon enemy = new Pokemon(skillslist,"敌人", 80, 15, 1);  
+
+
+		//展示所有精灵
+		System.out.println("你的所有精灵：");
+		for (Pokemon s : mylist ) {
+			System.out.println(mylist.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature());
+		}
+
+
+		int num_p = 0;  //精灵编号
+		int num_s = 0;  //技能编号
+		String order;  //输入的命令
+
+		while (1==1) {
+			System.out.print("请选择出战精灵（号码）:");
+			order = scanner.nextLine();
+
+			//CustomMethod abc = new CustomMethod();
+			if (CustomMethod.isDigit(order)) {
+				num_p = Integer.parseInt(order) - 1;
+				if (num_p < mylist.size())
+					break;
+				else {
+					System.out.println("无效输入！");
+					continue;
+				}
+			}
+			else {
+				System.out.println("无效输入！");
+				continue;
+			}
+		}
+
+		// 初始化玩家的回合数和敌人的回合数  
+		int PokemonTurn = 1;  
+		//int enemyTurn = 1;  //改为敌我同一回合 
+
+
+		while (mylist.get(num_p).getHealth() > 0 && enemy.getHealth() > 0) {
+
+			System.out.println("回合：" + PokemonTurn);  
+			System.out.print("请输入命令（1：攻击/2：治疗/3：切换精灵/4：捕捉/5：逃跑）:");  
+			order = scanner.nextLine();
+			if(mylist.get(num_p).getHealth() > 0) {
+				if (order.equals("1")) {  
+
+					Thread.sleep(2000);
+
+					//展示技能列表
+					System.out.println(mylist.get(num_p).getName() + " 的技能：");
+					for (Skills s : mylist.get(num_p).getSkills()) {
+						System.out.println(mylist.get(num_p).getSkills().indexOf(s)+1 + " - " + s.getSkillname() + "  伤害：" + mylist.get(num_p).getAttack() * s.getCoef() + "  命中率：" + s.getAccuracy());
+					}
+
+					while (1==1) {
+						System.out.print("请选择技能:");  
+						order = scanner.nextLine();
+
+						if (CustomMethod.isDigit(order)) {
+							num_s = Integer.parseInt(order) - 1;
+							if (num_s < mylist.get(num_p).getSkills().size())
+								break;
+							else {
+								System.out.println("无效输入！");
+								continue;
+							}
+						}
+						else {
+							System.out.println("无效输入！");
+							continue;
+						}
+					}
+
+
+					enemy.decreaseHealth(mylist.get(num_p).attack(enemy, num_s));  
+
+					Thread.sleep(2000);
+
+					if(enemy.getHealth() > 0) {
+
+						mylist.get(num_p).decreaseHealth(enemy.attack(mylist.get(num_p), 0));  
+						PokemonTurn++;
+
+					}
+
+				} else if (order.equals("2")) {  
+
+					Thread.sleep(2000);
+
+					//TO DO
+
+					PokemonTurn++;
+
+				}else if(order.equals("3")) {
+
+					Thread.sleep(2000);
+					//展示所有精灵
+					System.out.println("你的所有精灵：");
+					for (Pokemon s : mylist ) {
+						System.out.println(mylist.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature());
+					}
+					//选择出战精灵
+					while (1==1) {
+						System.out.print("请选择出战精灵（号码）:");
+						order = scanner.nextLine();
+						//CustomMethod abc = new CustomMethod();
+						if (CustomMethod.isDigit(order)) {
+							num_p = Integer.parseInt(order) - 1;
+							if (num_p < mylist.size())
+								break;
+							else {
+								System.out.println("无效输入！");
+								continue;
+							}
+						}
+						else {
+							System.out.println("无效输入！");
+							continue;
+						}
+					}
+
+				} else if(order.equals("4")) {
+
+					Thread.sleep(2000);
+
+					System.out.println("捕捉成功，取个新名字吧:");
+					String name = scanner.nextLine(); 
+					enemy.setName(name);	//重命名
+					mylist.add(enemy);	//加入list	            	
+					System.out.println("你的所有精灵：");
+					for (Pokemon s : mylist ) {
+						System.out.println(mylist.indexOf(s)+1 + " - " + s.getName() + "  血量：" + s.getHealth() + "  属性：" + s.getNature());
+					}
+					//System.out.print("结束战斗！");
+
+					break;
+				} else if(order.equals("5")) {
+
+					Thread.sleep(2000);
+
+					System.out.print("逃跑！");
+
+					break;
+				}
+
+
+
+				else {  
+
+					System.out.println("无效输入！"); 
+					continue;
+				}  
+			}
+		}
+
+
+
+		// 结果
+
+		if (mylist.get(num_p).getHealth() <= 0) {  
+			System.out.println("GameOver！");
+		} else {  
+			System.out.println("结束战斗！");  
+		}
+
+
+
+	}
 }

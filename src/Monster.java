@@ -3,13 +3,13 @@
  * 怪物类，不同于精灵，用于收集进化瓶...
  * 
  */
-class Enemy {  
+class Monster {  
 	Nature nature; 				//属性
     private String name = "怪物1";  
     private double health;  	//生命
     private int attack; 		//攻击力
   
-    public Enemy(Nature nature, String name, double health, int attack) {  
+    public Monster(Nature nature, String name, double health, int attack) {  
     	
     	this.nature = nature;
         this.name = name;  
@@ -17,7 +17,7 @@ class Enemy {
         this.attack = attack;  
     }  
     
-    public Enemy(String name, double health, int attack) {  
+    public Monster(String name, double health, int attack) {  
     	
     	//随机属性
     	this(new Nature(), name, health, attack);
@@ -36,7 +36,7 @@ class Enemy {
         return health;  
     }  
     
-    public double attack(Player enemy) {  
+    public double attack(Pokemon enemy) {  
     	
     	System.out.print(this.name + " 攻击了" + enemy.getName() +"，");  
     	
@@ -48,7 +48,7 @@ class Enemy {
     }  
   
 	/*
-	 * public double useSkill(Player enemy) {
+	 * public double useSkill(Pokemon enemy) {
 	 * 
 	 * System.out.print(this.name + " 使用技能，");
 	 * 
