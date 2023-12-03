@@ -38,6 +38,8 @@ public class Test {
 		 */
 
 		// 第一次遭遇战斗
+		
+		System.out.println("...遭遇野外精灵~~~");
 
 		Pokemon enemy = new Pokemon(skillslist, "敌人", 120, 15, 1);
 
