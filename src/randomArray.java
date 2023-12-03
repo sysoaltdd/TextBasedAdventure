@@ -1,6 +1,6 @@
 
 /**
- * 指定范围 生成n个不重复的数 返回一组整数
+ * 指定范围 生成n个不重复的数
  */
 public class randomArray {
 	

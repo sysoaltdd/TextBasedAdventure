@@ -9,14 +9,14 @@ import java.util.List;
 class Pokemon {  
 	Nature nature; 				//属性类
 	private String name;  
-	private int health;  	//当前生命值
-	private int healthmax;	//最大生命值，考虑有治疗技能
+	private int health;  		//当前生命值
+	private int healthmax;		//最大生命值，考虑有治疗技能
 	private int attack; 		//基础攻击力
-	private List<Skills> skilllist; //自身最终技能列表
-	private int numskill = 5;		//除去技能0外的随机技能个数 
+	private List<Skill> skilllist = new ArrayList<>();; //自身技能列表
+	private int numskill = 2;	//除去技能0外的随机技能个数 
 
 
-	public Pokemon(Nature nature, List<Skills> skilllist, String name, int healthmax, int attack, int numskill) {  
+	public Pokemon(Nature nature, List<Skill> skilllist, String name, int healthmax, int attack, int numskill) {  
 
 		this.nature = nature;
 		this.name = name;  
@@ -25,7 +25,6 @@ class Pokemon {
 		this.attack = attack;
 		this.numskill = numskill;
 
-		this.skilllist = new ArrayList<>();
 		this.skilllist.add(skilllist.get(0));//技能0
 
 		//随机生成剩余技能
@@ -36,7 +35,7 @@ class Pokemon {
 
 	}  
 
-	public Pokemon(List<Skills> skilllist, String name, int healthmax, int attack, int numskill) {  
+	public Pokemon(List<Skill> skilllist, String name, int healthmax, int attack, int numskill) {  
 
 		//随机属性
 		this(new Nature(), skilllist, name, healthmax, attack, numskill);
@@ -57,22 +56,46 @@ class Pokemon {
 
 	public double getHealth() {  
 		return health;  
-	}  
+	} 
+	public double getHealthmax() {  
+		return healthmax;  
+	} 
+
+
+	//治愈
+	public void doHeal() {  
+
+		this.health = healthmax;
+
+		System.out.println(name + " 受到治疗，满血啦~ ");
+
+	}
 
 	public double getAttack() {  
 		return attack;  
 	}  
 
-	public List<Skills> getSkills(){
+	public List<Skill> getSkills(){
 
 		return skilllist;
 
 	}
 
+	// 显示技能列表
+	public void showSkills() {
+
+		System.out.println(name + " 的技能：");
+		for (Skill s : skilllist) {
+			System.out.println(skilllist.indexOf(s)+1 + " - " + s.getSkillname() + "  伤害：" + attack * s.getCoef() + "  命中率：" + s.getAccuracy()*100 + "%");
+		}
+
+	}
+
+
 	public int attack(Pokemon enemy, int ord) {  						//新增参数，表示调用不同技能
 
-		System.out.println(this.name + " 使用了" + skilllist.get(ord).getSkillname());  
-
+		System.out.println(this.name + " 使用了" + skilllist.get(ord).getSkillname()); 
+		
 		int damage = (int)Math.round(attack * this.nature.outcom(enemy.nature) * skilllist.get(ord).getSkillcoef());  //小数四舍五入取整
 
 		if(damage == 0) {
@@ -80,7 +103,7 @@ class Pokemon {
 			System.out.println("未命中！");
 
 		}else {
-
+			
 			System.out.println(" 造成 " + damage + " 点伤害！");  
 
 		}
@@ -88,17 +111,6 @@ class Pokemon {
 		return damage;  
 	}  
 
-	/*
-	 * public double useSkill(Pokemon enemy) {
-	 * 
-	 * System.out.print(this.name + " 使用技能，");
-	 * 
-	 * double damage = attack * 2 * this.nature.outcom(enemy.nature);
-	 * 
-	 * System.out.println(" 造成 " + damage + " 点伤害！");
-	 * 
-	 * return damage; }
-	 */  
 
 	public void decreaseHealth(double damage) {  
 		health -= damage;  

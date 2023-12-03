@@ -5,7 +5,7 @@
  */
 class Monster {  
 	Nature nature; 				//属性
-    private String name = "怪物1";  
+    private String name = "怪物";  
     private double health;  	//生命
     private int attack; 		//攻击力
   

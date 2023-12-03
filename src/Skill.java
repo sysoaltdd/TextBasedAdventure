@@ -1,15 +1,15 @@
 /**技能类
  * 名称，伤害系数，命中率
  */
-public class Skills {
+public class Skill {
 	
 	private String name = "普通攻击";  	//技能名称
 	private double coef = 1.0;          //基于基础攻击力的伤害系数
 	private double accuracy = 0.95;		//命中率
 	
-	public Skills() {}
+	public Skill() {}
 	
-	public Skills(String name, double coef, double accuracy) {
+	public Skill(String name, double coef, double accuracy) {
 		
 		this.name = name;
 		this.coef = coef;
