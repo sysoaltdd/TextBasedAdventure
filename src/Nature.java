@@ -3,7 +3,7 @@
  * 属性类，三种属性克制关系
  */
 
-public class Nature {
+class Nature {
 	
 	private int cod;    			//1 2 3
 	private String notes;  			//水火草

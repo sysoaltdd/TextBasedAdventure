@@ -7,7 +7,7 @@ import java.util.Scanner;
  * 精灵pk，收集精灵，打败怪物
  * 治疗、升级精灵，收集徽章，收集进化瓶
  */
-public class Person {
+class Person {
 	
 	private String name;
 	private List<Pokemon> pokemonlist = new ArrayList<>();	//精灵		
