@@ -39,7 +39,7 @@ public class Test {
 
 		// 第一次遭遇战斗
 		
-		System.out.println("...遭遇野外精灵~~~");
+		System.out.println("\n...遭遇野外精灵~~~\n");
 
 		Pokemon enemy = new Pokemon(skillslist, "敌人", 120, 15, 1);
 
@@ -108,8 +108,7 @@ public class Test {
 					// 对方攻击
 					if (enemy.getHealth() > 0) {
 
-						hero.getPokemonlist().get(num_p)
-								.decreaseHealth(enemy.attack(hero.getPokemonlist().get(num_p), 0));
+						hero.getPokemonlist().get(num_p).decreaseHealth(enemy.attack(hero.getPokemonlist().get(num_p), 0));
 
 						PokemonTurn++;
 
