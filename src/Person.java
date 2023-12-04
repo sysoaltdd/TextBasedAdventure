@@ -43,9 +43,113 @@ public class Person {
 		
 	}
 	
+	//收集徽章
+	public void getBadge() {
+		
+		System.out.println("得到一个进化瓶~~~");
+		badge++;
+		
+	}
+	
+	//显示精灵列表
 	public List<Pokemon> getPokemonlist(){
 		
 		return this.pokemonlist;
+		
+	}
+	
+	//战斗菜单 返回所选数字 （1：攻击/2：治疗/3：切换精灵/4：捕捉/5：逃跑）
+	public int manu(int PokemonTurn) {
+		
+		int num;
+		
+		while (1 == 1) {
+			
+			System.out.println("回合：" + PokemonTurn);
+			System.out.print("请输入命令（1：攻击/2：治疗/3：切换精灵/4：捕捉/5：逃跑）:");
+			Scanner scanner = new Scanner(System.in);
+			String order = scanner.nextLine();
+			
+
+			if (CustomMethod.isDigit(order)) {
+				
+				num = Integer.parseInt(order);
+				
+				// 目前菜单只有5项
+				if (num > 5) {
+					System.out.println("无效输入！");
+					continue;
+				}
+				else {
+					break;
+				}
+			} else {
+				System.out.println("无效输入！");
+				continue;
+			}
+		}
+		return num;
+		
+	}
+	
+	//选择精灵进入战斗，判断输入，返回所选的精灵编号
+	public int battle_start() {
+		
+		int num_p = 0;
+		
+		this.showPokemon();
+		
+		while (1 == 1) {
+
+			System.out.print("请选择出战精灵（号码）:");
+			Scanner scanner = new Scanner(System.in);
+			String s = scanner.nextLine();
+			
+
+			if (CustomMethod.isDigit(s)) {
+				num_p = Integer.parseInt(s) - 1;
+				if (num_p < pokemonlist.size())
+					break;
+				else {
+					System.out.println("无效输入！");
+					continue;
+				}
+			} else {
+				System.out.println("无效输入！");
+				continue;
+			}
+		}
+		return num_p;
+		
+	}
+	
+	//战斗中选择技能  判断输入，返回所选的技能编号
+	public int battling(int num_p) {
+		
+		int num_s = 0;
+		
+		// 展示技能列表
+		pokemonlist.get(num_p).showSkills();
+
+		while (1 == 1) {
+			System.out.print("请选择技能:");
+			Scanner scanner = new Scanner(System.in);
+			String order = scanner.nextLine();
+
+			if (CustomMethod.isDigit(order)) {
+				num_s = Integer.parseInt(order) - 1;
+				if (num_s < pokemonlist.get(num_p).getSkills().size())
+					break;
+				else {
+					System.out.println("无效输入！");
+					continue;
+				}
+			} else {
+				System.out.println("无效输入！");
+				continue;
+			}
+		}
+		return num_s;
 		
 	}
 	

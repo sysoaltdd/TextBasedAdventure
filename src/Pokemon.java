@@ -12,7 +12,7 @@ class Pokemon {
 	private int health;  		//当前生命值
 	private int healthmax;		//最大生命值，考虑有治疗技能
 	private int attack; 		//基础攻击力
-	private List<Skill> skilllist = new ArrayList<>();; //自身技能列表
+	private List<Skill> skilllist = new ArrayList<>(); //自身技能列表
 	private int numskill = 2;	//除去技能0外的随机技能个数 
 
 
@@ -91,9 +91,9 @@ class Pokemon {
 
 	}
 
-
-	public int attack(Pokemon enemy, int ord) {  						//新增参数，表示调用不同技能
-
+	//新增ord参数，表示调用不同技能，因为是主动选择技能
+	public int manual_attack(Pokemon enemy, int ord) {
+		
 		System.out.println(this.name + " 使用了" + skilllist.get(ord).getSkillname()); 
 		
 		int damage = (int)Math.round(attack * this.nature.outcom(enemy.nature) * skilllist.get(ord).getSkillcoef());  //小数四舍五入取整
@@ -110,9 +110,32 @@ class Pokemon {
 
 		return damage;  
 	}  
+	
+	//野外精灵会随机使用技能，调用此方法
+	public int auto_attack(Pokemon enemy) {
+		
+		int ord = (int)(Math.random() * skilllist.size());
+
+		System.out.println(this.name + " 使用了" + skilllist.get(ord).getSkillname()); 
+
+		int damage = (int)Math.round(attack * this.nature.outcom(enemy.nature) * skilllist.get(ord).getSkillcoef());  //小数四舍五入取整
+
+		if(damage == 0) {
+
+			System.out.println("未命中！");
+
+		}else {
+
+			System.out.println(" 造成 " + damage + " 点伤害！");  
+
+		}
+
+		return damage;  
+	}
 
 
-	public void decreaseHealth(double damage) {  
+	public void decreaseHealth(int damage) {
+		
 		health -= damage;  
 		if(health > 0)
 			System.out.println(this.name + " 剩余生命值：" + health);  
